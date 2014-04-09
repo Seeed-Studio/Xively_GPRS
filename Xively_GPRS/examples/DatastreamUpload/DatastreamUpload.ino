@@ -21,10 +21,9 @@ char apn[] = "cmnet";
 GPRSClient gprs(PIN_TX,PIN_RX,19200,apn,NULL,NULL);
 XivelyClient xivelyclient(gprs);
 
-int sensorPin = 2;
+int sensorPin = A1;
 
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(9600);
   Serial.println("Starting single datastream upload to Xively...");
   Serial.println();
@@ -34,15 +33,14 @@ void setup() {
     Serial.println("connect error");
     delay(2000);
   }
-
   // successful DHCP
   Serial.print("IP = ");
   Serial.println(gprs.getIPAddress());
 }
 
 void loop() {
-  //int sensorValue = analogRead(sensorPin);
-  int sensorValue = 333;//for debug
+  int sensorValue = analogRead(sensorPin);
+  //int sensorValue = 333;//for debug
   datastreams[0].setFloat(sensorValue);
   Serial.print("Read sensor value ");
   Serial.println(datastreams[0].getFloat());
